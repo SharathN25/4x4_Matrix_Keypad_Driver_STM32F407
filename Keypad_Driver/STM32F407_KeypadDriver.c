@@ -58,31 +58,31 @@ static void Set_Keypad_Row(unit8_t Row)
 /*For specific row value sent , check all the cloumns*/
 static void Check_Keypad_Column(unit8_t Row)
 {
-	if(!READ_COLUMN_1)
+	if(!READ_COLUMN_1)                           //If COLUMN_1 is LOW
 	{
-		while(!READ_COLUMN_1);
-		return Keypad_Button_Values[Row-1][0];
+		while(!READ_COLUMN_1);                   //Wait till Key is pressed 
+		return Keypad_Button_Values[Row-1][0];   
 	}
 
-	if(!READ_COLUMN_2)
+	if(!READ_COLUMN_2)                           //If COLUMN_2 is LOW  
 	{
-		while(!READ_COLUMN_2);
+		while(!READ_COLUMN_2);                   //Wait till Key is pressed 
 		return Keypad_Button_Values[Row-1][1];
 	}
 
-    if(!READ_COLUMN_3)
+    if(!READ_COLUMN_3)                           //If COLUMN_3 is LOW
 	{
-		while(!READ_COLUMN_3);
+		while(!READ_COLUMN_3);                   //Wait till Key is pressed 
 		return Keypad_Button_Values[Row-1][2];
 	}
 
-	if(!READ_COLUMN_4)
+	if(!READ_COLUMN_4)                           //If COLUMN_3 is LOW
 	{
-		while(!READ_COLUMN_4);
+		while(!READ_COLUMN_4);                   //Wait till Key is pressed 
 		return Keypad_Button_Values[Row-1][3];
 	}
 
-	return KEYPAD_NOT_PRESSED;
+	return KEYPAD_NOT_PRESSED;                   //If NO Key is pressed 
 
 }
 
