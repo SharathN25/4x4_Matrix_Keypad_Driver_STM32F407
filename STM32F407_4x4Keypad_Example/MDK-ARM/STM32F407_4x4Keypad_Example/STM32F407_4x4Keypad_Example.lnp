@@ -1,7 +1,6 @@
 --cpu=Cortex-M4.fp
 "stm32f407_4x4keypad_example\startup_stm32f407xx.o"
 "stm32f407_4x4keypad_example\stm32f407_keypaddriver.o"
-"stm32f407_4x4keypad_example\retarget_io.o"
 "stm32f407_4x4keypad_example\main.o"
 "stm32f407_4x4keypad_example\stm32f4xx_it.o"
 "stm32f407_4x4keypad_example\stm32f4xx_hal_msp.o"
@@ -21,6 +20,7 @@
 "stm32f407_4x4keypad_example\stm32f4xx_hal.o"
 "stm32f407_4x4keypad_example\stm32f4xx_hal_exti.o"
 "stm32f407_4x4keypad_example\system_stm32f4xx.o"
+"stm32f407_4x4keypad_example\retarget_io.o"
 --library_type=microlib --strict --scatter "STM32F407_4x4Keypad_Example\STM32F407_4x4Keypad_Example.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
