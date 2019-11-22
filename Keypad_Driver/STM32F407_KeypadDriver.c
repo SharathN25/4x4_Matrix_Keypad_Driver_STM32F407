@@ -7,6 +7,7 @@
 #include "STM32F407_KeypadDriver.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_gpio.h"
+#include <stdint.h>
 
 /* Row pins are output */
 #define SET_ROW_1_HIGH              HAL_GPIO_WritePin(KEYPAD_ROW_1_PORT, KEYPAD_ROW_1_PIN, GPIO_PIN_SET)
@@ -26,13 +27,13 @@
 
 /* Keypad Button Values*/
 const char Keypad_Button_Values[4][4] =  {  {'1', '2', '3', 'A'},
-	                                        {'4', '5', '6', 'B'},
-	                                        {'7', '8', '9', 'C'},
-	                                        {'*', '0', '#', 'D'},
+	                                          {'4', '5', '6', 'B'},
+	                                          {'7', '8', '9', 'C'},
+	                                          {'*', '0', '#', 'D'},
                                          };
 
 /* Set Specific Keypad row to LOW */
-static void Set_Keypad_Row(unit8_t Row)
+static void Set_Keypad_Row(uint8_t Row)
 {
 	/*Make all Rows HIGH*/
 	SET_ROW_1_HIGH;
@@ -56,7 +57,7 @@ static void Set_Keypad_Row(unit8_t Row)
 
 
 /*For specific row value sent , check all the cloumns*/
-static void Check_Keypad_Column(unit8_t Row)
+static char Check_Keypad_Column(uint8_t Row)
 {
 	if(!READ_COLUMN_1)                           //If COLUMN_1 is LOW
 	{
@@ -88,19 +89,54 @@ static void Check_Keypad_Column(unit8_t Row)
 
 
 
-
-
 /* Initialize the keypad */
 void KEYPAD_Init(void)
 {
-	GPIO_InitTypeDef GPIO_InitStruct = {0};
 	
-	/* Enable Column-Port Clock */
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1|GPIO_PIN_3, GPIO_PIN_RESET);
 
-  
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1|GPIO_PIN_3, GPIO_PIN_RESET);
 
+  /*Configure GPIO pins : PC1 PC3 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_3;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PA1 PA3 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_3;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PA5 PA7 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_7;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PC5 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 	
 }
