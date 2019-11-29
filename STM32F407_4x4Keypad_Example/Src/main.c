@@ -1,7 +1,9 @@
 /**
   ******************************************************************************
   * @file           : main.c
-  * @brief          : Main program body.
+  * @author         : Sharath N
+  * @brief          : An Example for interfacing 4x4 keypan on STM32F407
+                      ->Cube MX was used to generate initial set up code
   ******************************************************************************
  */
 
